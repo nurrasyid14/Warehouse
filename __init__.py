@@ -1,6 +1,5 @@
-from .Clustering import *
-from .Forecast import *
-from .hyperparameter_tuner import * 
+from .ML import *
+__version__ = '0.1.0'
 
 __all__ = [
     "BaseCentroidCluster",
