@@ -155,8 +155,15 @@ if __name__ == "__main__":
 
     engine = create_engine(DB_URL)
 
-    # 1. Build entire schema: OLTP + DW + views + indexes (one file)
-    run_sql_file(engine, "Manufaktur.sql")
+    sql_files = [
+        "Workshop/Manufaktur.sql",
+        # "Workshop/Manufaktur_ETL.sql",
+        "Workshop/Manufacture_view.sql",
+        "Workshop/cubes.sql",
+    ]
+    # 1. Build entire schema: OLTP + DW + views + indexes + Cubes (Loop)
+    for sql_file in sql_files:
+        run_sql_file(engine, sql_file)
 
     # 2. Validate all tables
     validate_tables(engine)
