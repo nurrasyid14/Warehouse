@@ -169,17 +169,24 @@ def clustering_report(
             )
     }
 
+def evaluate_clustering(
+    X,
+    labels
+):
+
+    return clustering_report(
+        X,
+        labels
+    )
 
 __all__ = [
     "silhouette",
     "davies_bouldin",
     "calinski_harabasz",
-
     "ari",
     "nmi",
     "ami",
-
     "noise_ratio",
-
-    "clustering_report"
+    "clustering_report",
+    "evaluate_clustering"
 ]
