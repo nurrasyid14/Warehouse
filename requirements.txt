@@ -12,3 +12,4 @@ kmodes
 kmedoids
 statsmodels
 hdbscan
+scikit-fuzzy
