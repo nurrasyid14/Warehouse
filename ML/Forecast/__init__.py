@@ -15,6 +15,12 @@ from .arima import (
 
 from .var import VAR
 
+from .exponential_smoothing import (
+    SimpleExponentialSmoothing,
+    Holt,
+    ExponentialSmoothing
+)
+
 from .evals import (
     mae,
     mse,
@@ -199,6 +205,9 @@ __all__ = [
     "ARIMAX",
     "SARIMAX",
     "VAR",
+    "SimpleExponentialSmoothing",
+    "Holt",
+    "ExponentialSmoothing",
 
     # Utilities
     "is_stationary",

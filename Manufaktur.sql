@@ -204,6 +204,8 @@ INSERT INTO employees (employee_id, full_name, gender, origin_region, placement_
 ('EM-202501010900-049','Sanjay Malhotra',     'Male',  'Indian',          'Berlin',   'WS-202501010800-014',3,'+421 902 345678','sama@ymail.com',       'DIV-004','2019-11-05'),
 ('EM-202501010900-050','Meera Pillai',        'Female','Indian',          'Munich',   'WS-202501010800-015',4,'+43 676 1234567','mepi@xmail.com',       'DIV-005','2021-06-16');
 
+ALTER TABLE employees DROP COLUMN origin_region;
+
 COMMIT;
 
 -- ============================================================
@@ -627,7 +629,7 @@ WHERE util_date NOT BETWEEN '2025-12-24' AND '2025-12-31';
 
 -- dim_employee
 CREATE TABLE dim_employee AS
-SELECT e.employee_id, e.full_name, e.gender, e.origin_region,
+SELECT e.employee_id, e.full_name, e.gender,
        e.placement_city, e.skill_level, e.hire_date,
        d.division_id, d.division_name
 FROM employees e JOIN divisions d ON e.division_id = d.division_id;
@@ -674,7 +676,6 @@ SELECT
     e.employee_id,
     e.full_name,
     e.gender,
-    e.origin_region,
     e.placement_city,
     e.skill_level,
     e.division_id,
@@ -686,7 +687,7 @@ SELECT
     ROUND(AVG(pr.productivity_index),4) AS avg_productivity
 FROM employees e
 LEFT JOIN production_runs pr ON e.employee_id = pr.employee_id
-GROUP BY e.employee_id, e.full_name, e.gender, e.origin_region,
+GROUP BY e.employee_id, e.full_name, e.gender,
          e.placement_city, e.skill_level, e.division_id;
 
 -- ============================================================

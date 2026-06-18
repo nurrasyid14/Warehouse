@@ -1,58 +1,25 @@
 from __future__ import annotations
 
-import time
 import pandas as pd
-
 from .result import BenchmarkResult
 
+class AggregationBenchmark:
+    """
+    Aggregation level benchmark container.
+    Collects multiple BenchmarkResult objects and evaluates them.
+    """
 
-class ForecastingBenchmark:
+    def __init__(self):
+        self.results: list[BenchmarkResult] = []
 
-    def __init__(
-        self,
-        cube,
-        model,
-        evaluator
-    ):
+    def add_result(self, result: BenchmarkResult) -> None:
+        """Add a benchmark result to the collection."""
+        self.results.append(result)
 
-        self.cube = cube
-        self.model = model
-        self.evaluator = evaluator
-
-        self.result = None
-
-    def run(self):
-
-        start = time.perf_counter()
-
-        self.model.fit(
-            self.cube.data
-        )
-
-        forecast = self.model.forecast()
-
-        metrics = self.evaluator(
-            forecast
-        )
-
-        elapsed = (
-            time.perf_counter()
-            - start
-        )
-
-        self.result = BenchmarkResult(
-            experiment_name="forecast",
-            cube_name=self.cube.name,
-            model_name=self.model.__class__.__name__,
-            metrics=metrics,
-            elapsed_seconds=elapsed,
-        )
-
-        return self.result
-
-    def to_dataframe(self):
-
-        if self.result is None:
+    def to_dataframe(self) -> pd.DataFrame:
+        """Convert all stored benchmark results to a single combined DataFrame."""
+        if not self.results:
             return pd.DataFrame()
-
-        return self.result.to_dataframe()
+        
+        dfs = [res.to_dataframe() for res in self.results]
+        return pd.concat(dfs, ignore_index=True)

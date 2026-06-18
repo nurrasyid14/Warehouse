@@ -10,7 +10,7 @@ from .cube import Cube
 from .query import CubeQuery
 
 from .slicer import slice_cube
-from .slicer import dice_cube
+from .dicer import dice_cube
 
 from .rollup import rollup
 from .drilldown import drilldown

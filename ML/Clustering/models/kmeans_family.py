@@ -277,8 +277,10 @@ class KMedoidsCluster(BaseCentroidCluster):
             replace=False
         )
 
+        from sklearn.metrics import pairwise_distances
+        dist_matrix = pairwise_distances(X, metric="euclidean")
         result = kmedoids.fasterpam(
-            X,
+            dist_matrix,
             medoid_indices
         )
 
@@ -310,10 +312,18 @@ class KMedoidsCluster(BaseCentroidCluster):
 # EXPORTS
 # =====================================================
 
+# Aliases to match imports in ML.Clustering.models
+KMeans = KMeansPlusPlus
+KMedoids = KMedoidsCluster
+KModes = KModesCluster
+
 __all__ = [
     "KMeansCluster",
     "KMeansPlusPlus",
     "FuzzyCMeansCluster",
     "KModesCluster",
-    "KMedoidsCluster"
+    "KMedoidsCluster",
+    "KMeans",
+    "KMedoids",
+    "KModes"
 ]

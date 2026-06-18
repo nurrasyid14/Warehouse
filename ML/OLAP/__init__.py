@@ -5,10 +5,8 @@ from .reader import CubeReader
 from .query import CubeQuery
 from .session import OLAPSession
 
-from .slicer import (
-    slice_cube,
-    dice_cube
-)
+from .slicer import slice_cube
+from .dicer import dice_cube
 
 from .rollup import rollup
 from .drilldown import drilldown

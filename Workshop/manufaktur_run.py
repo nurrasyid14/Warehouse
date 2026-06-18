@@ -31,10 +31,15 @@ ANALYTICS_VIEWS = [
 def reset_database() -> None:
     """Drop (if exists) and recreate the target database."""
     admin_engine = create_engine(DB_URL_ADMIN, isolation_level="AUTOCOMMIT")
-    with admin_engine.connect():          # just ping the admin connection
-        pass
 
     if database_exists(DB_URL):
+        with admin_engine.connect() as conn:
+            conn.execute(text(f"""
+                SELECT pg_terminate_backend(pg_stat_activity.pid)
+                FROM pg_stat_activity
+                WHERE pg_stat_activity.datname = '{DB_NAME}'
+                  AND pid <> pg_backend_pid();
+            """))
         drop_database(DB_URL)
         print(f"[RESET] Database '{DB_NAME}' dropped")
 

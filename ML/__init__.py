@@ -7,7 +7,17 @@ from .Tracking import *
 from .Benchmark import *
 from .Statistics import *
 from .Dashboard import Dashboard
+
+# main_pipeline functions are loaded dynamically via __getattr__ to prevent circular imports
+
 __all__ = [
+    "clustering_analysis",
+    "correlation_analysis",
+    "data_preparation",
+    "dashboard_generation",
+    "forecasting_analysis",
+    "sensitivity_analysis",
+    "timeseries_decomposition",
     "BaseCentroidCluster",
     "KMeans", "KMedoids", "KModes",
     "BaseDensityCluster",
@@ -28,6 +38,7 @@ __all__ = [
     "cluster_persistence_plot",
     "dendrogram_plot",
     "ARIMA","SARIMA","ARIMAX","SARIMAX","VAR",
+    "SimpleExponentialSmoothing", "Holt", "ExponentialSmoothing",
     "is_stationary",
     "difference",
     "inverse_difference",
@@ -95,3 +106,20 @@ __all__ = [
     "summarize_best",
     "Dashboard"
 ]
+
+def __getattr__(name: str):
+    if name in {
+        "clustering_analysis",
+        "correlation_analysis",
+        "data_preparation",
+        "dashboard_generation",
+        "forecasting_analysis",
+        "sensitivity_analysis",
+        "timeseries_decomposition"
+    }:
+        import main_pipeline
+        return getattr(main_pipeline, name)
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+
+def __dir__():
+    return sorted(__all__ + list(globals().keys()))

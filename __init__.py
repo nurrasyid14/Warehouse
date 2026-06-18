@@ -22,6 +22,7 @@ __all__ = [
     "cluster_persistence_plot",
     "dendrogram_plot",
     "ARIMA","SARIMA","ARIMAX","SARIMAX","VAR",
+    "SimpleExponentialSmoothing", "Holt", "ExponentialSmoothing",
     "is_stationary",
     "difference",
     "inverse_difference",

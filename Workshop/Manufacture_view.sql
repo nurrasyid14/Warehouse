@@ -40,7 +40,6 @@ SELECT
     e.skill_level,
     e.division_name,
     e.gender,
-    e.origin_region,
     e.placement_city,
 
     -- PRODUCT
@@ -103,7 +102,6 @@ SELECT
     e.skill_level,
     e.division_name,
     e.gender,
-    e.origin_region,
 
     COUNT(*) AS total_jobs,
 
@@ -139,8 +137,7 @@ GROUP BY
     f.employee_id,
     e.skill_level,
     e.division_name,
-    e.gender,
-    e.origin_region;
+    e.gender;
 
 
 -- ==========================================

@@ -60,3 +60,6 @@ class PipelineExperiment:
         return len(
             self.results
         )
+
+
+Experiment = PipelineExperiment
